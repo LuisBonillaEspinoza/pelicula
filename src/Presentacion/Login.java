@@ -33,6 +33,8 @@ public class Login extends javax.swing.JFrame {
         setLocation((screen.width - frame.width)/2,(screen.height - frame.height)/2);
     }
     public static String nombre = "";
+    public static String saldo1 = "";
+    public static String codigo = "";
     Connection con = new DBManager().obtenerConexion();
     ResultSet rs;
     /**
@@ -144,28 +146,24 @@ public class Login extends javax.swing.JFrame {
             String tipo;
             Double saldo;
             try {
-                PreparedStatement pst = con.prepareStatement("select  usuario.usuario_txt_nom,tarjeta.tarjeta_double_saldo,usuario.rol_num_cod from tarjeta inner join usuario on tarjeta.usuario_txt_dni = usuario.usuario_txt_dni where tarjeta_num_cod ='" + usuario + "' and tarjeta_txt_pass = '" + pass + "'");
+                PreparedStatement pst = con.prepareStatement("select  tarjeta.tarjeta_num_cod,usuario.usuario_txt_nom,tarjeta.tarjeta_double_saldo,usuario.rol_num_cod from tarjeta inner join usuario on tarjeta.usuario_txt_dni = usuario.usuario_txt_dni where tarjeta_num_cod ='" + usuario + "' and tarjeta_txt_pass = '" + pass + "'");
                 rs = pst.executeQuery();
                 if(rs.next()){
                     tipo = rs.getString("rol_num_cod");
                     saldo = rs.getDouble("tarjeta_double_saldo");
                     nombre = rs.getString("usuario_txt_nom");
+                    saldo1 = rs.getString("tarjeta_double_saldo");
+                    codigo = rs.getString("tarjeta_num_cod");
                     if(tipo.equals("1")){
                         MenuAdministrador men = new MenuAdministrador();
                         this.dispose();
                         men.setVisible(true);
                     }
                     else if(tipo.equals("2")){
-                        if(saldo <= 0){
-                            MenuSaldoNega men = new MenuSaldoNega();
-                            this.dispose();
-                            men.setVisible(true);
-                        }
-                        else{
                             MenuCliente men = new MenuCliente();
                             this.dispose();
                             men.setVisible(true);
-                        }
+                        
                     }
                 }
                 else{

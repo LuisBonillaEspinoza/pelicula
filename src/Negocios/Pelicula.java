@@ -33,4 +33,13 @@ public class Pelicula {
             System.out.println("Error al Ingresar Pelicula : "+  e.getMessage());
         }
     }
+    
+    public void ModificarPelicula(String a,String b,String c,Double d,String f){
+        try {
+            PreparedStatement pst = con.prepareStatement("update pelicula set pelicula_txt_nom= '" + a + "', pelicula_txt_sipnosis='" + b + "',pelicula_num_existencia='" + c + "', pelicula_double_precio='" + d + "' where pelicula_num_cod='" + f + "'");
+            pst.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al modificar pelicula : " + e.getMessage());
+        }
+    }
 }

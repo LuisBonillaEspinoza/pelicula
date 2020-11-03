@@ -7,6 +7,7 @@ package Presentacion;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -149,6 +150,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton6.setText("Ver Peliculas");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -173,6 +179,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         jButton7.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jButton7.setText("Logout");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,7 +193,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 4, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,6 +266,25 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.dispose();
         pe.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        GestionPelicula ge = new GestionPelicula();
+        this.dispose();
+        ge.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+                               int rpta = JOptionPane.showOptionDialog(this, "¿Está seguro de cerrar sesión?",
+        null, JOptionPane.YES_NO_OPTION,
+        JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if (rpta == 0) {
+            Login log=new Login();
+            log.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
