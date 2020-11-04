@@ -42,4 +42,23 @@ public class Pelicula {
             System.out.println("Error al modificar pelicula : " + e.getMessage());
         }
     }
+        public void ModificarExistencias(String b){
+            int c = 0;
+            try {
+                PreparedStatement pst = con.prepareStatement("select * from pelicula");
+                rs = pst.executeQuery();
+                while(rs.next()){
+                    c = rs.getInt("pelicula_num_existencia");
+                }
+            } catch (Exception e) {
+                System.out.println("Error al Mostrar Existencias : " + e.getMessage());
+            }
+            c = c - 1;
+            try {
+                PreparedStatement pst = con.prepareStatement("update pelicula set pelicula_num_existencia='" + c + "' where pelicula_num_cod='" + b + "'");
+                pst.executeUpdate();
+            } catch (Exception e) {
+                System.out.println("Error al Modificar Existencias : " + e.getMessage());
+            }
+    }
 }

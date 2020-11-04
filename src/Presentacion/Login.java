@@ -6,6 +6,8 @@
 package Presentacion;
 
 import Conexion.DBManager;
+import Entidad.clsAlquiler;
+import Negocios.Alquiler;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -163,6 +165,10 @@ public class Login extends javax.swing.JFrame {
                             MenuCliente men = new MenuCliente();
                             this.dispose();
                             men.setVisible(true);
+                            clsAlquiler al = new clsAlquiler();
+                            al.setTarjeta_num_cod(codigo);
+                            Alquiler a = new Alquiler();
+                            a.GenerarAlquiler(al);
                     }
                 }
                 else{

@@ -5,6 +5,7 @@
  */
 package Presentacion;
 
+import Negocios.Alquiler;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -22,13 +23,20 @@ public class MenuCliente extends javax.swing.JFrame {
         initComponents();
         Login lo = new Login();
         jTextField1.setText(lo.nombre);
-        //FALTA ACTUALIZAR SALDO DINAMICAMENTE
+        Alquiler al = new Alquiler();
+        //FALTA ACTUALIZAR SALDO  Y BLOQUEO DINAMICAMENTE
         jTextField2.setText(lo.saldo1);
         if(Double.parseDouble(lo.saldo1)<=0){
             bloqueo();
         }
+        if(al.ObtenerEstado()==0){
+            bloqueo2();
+        }
         CentrarPantalla();
         bloqueo1();
+    }
+    void bloqueo2(){
+        jButton2.setEnabled(false);
     }
         void CentrarPantalla(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -178,7 +186,7 @@ public class MenuCliente extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        NuevoAlquiler nu = new NuevoAlquiler();
+        AlquilerPelicula nu = new AlquilerPelicula();
         this.dispose();
         nu.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed

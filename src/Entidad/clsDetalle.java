@@ -14,9 +14,19 @@ public class clsDetalle {
     private String detalle_date_fechaPres;
     private String detalle_date_fechaDevol;
     private String detalle_double_importeBruto;
+    private String detalle_num_can;
     private String alquiler_num_cod;
     private String pelicula_num_cod;
 
+    public String getDetalle_num_can() {
+        return detalle_num_can;
+    }
+
+    public void setDetalle_num_can(String detalle_num_can) {
+        this.detalle_num_can = detalle_num_can;
+    }
+
+    
     public String getDetalle_num_cod() {
         return detalle_num_cod;
     }
