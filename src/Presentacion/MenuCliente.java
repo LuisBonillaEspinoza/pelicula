@@ -6,6 +6,7 @@
 package Presentacion;
 
 import Negocios.Alquiler;
+import Negocios.Tarjeta;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -24,12 +25,12 @@ public class MenuCliente extends javax.swing.JFrame {
         Login lo = new Login();
         jTextField1.setText(lo.nombre);
         Alquiler al = new Alquiler();
-        //FALTA ACTUALIZAR SALDO  Y BLOQUEO DINAMICAMENTE
-        jTextField2.setText(lo.saldo1);
-        if(Double.parseDouble(lo.saldo1)<=0){
+        Tarjeta ta = new Tarjeta();
+        jTextField2.setText(String.valueOf(ta.ObtenerSaldo()));
+        if(ta.ObtenerSaldo()<=0){
             bloqueo();
         }
-        if(al.ObtenerEstado()==0){
+        if(al.ObtenerEstado()==1){
             bloqueo2();
         }
         CentrarPantalla();
@@ -95,6 +96,11 @@ public class MenuCliente extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
         jButton3.setText("Devolver Pelicula");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel2.setText("Su Saldo es : ");
@@ -179,6 +185,7 @@ public class MenuCliente extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         RecargarTarjeta re = new RecargarTarjeta();
         this.dispose();
         re.setVisible(true);
@@ -190,6 +197,13 @@ public class MenuCliente extends javax.swing.JFrame {
         this.dispose();
         nu.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        DevolverPelicula de = new DevolverPelicula();
+        this.dispose();
+        de.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -75,7 +75,7 @@ public class Login extends javax.swing.JFrame {
         txtpass.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jButton1.setText("Ingrese");
+        jButton1.setText("Introducir Tarjeta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -107,7 +107,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(65, 65, 65))
             .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
+                .addGap(115, 115, 115)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -126,9 +126,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addComponent(jButton1)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,7 +172,7 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"Datos Incorrectos");
+                    JOptionPane.showMessageDialog(null,"Tarjeta Invalida");
                     txtpass.setText("");
                     txtus.setText("");
                 }

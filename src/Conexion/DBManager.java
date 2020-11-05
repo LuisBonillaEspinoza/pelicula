@@ -19,7 +19,7 @@ public Connection con;
     public ResultSet rs;
     
     public DBManager(){
-        String driver = "jdbc:mysql://localhost:3306/pelicula";
+        String driver = "jdbc:mysql://localhost:3306/pelicula1";
         String user = "root";
         String password = "";
         try {

@@ -40,7 +40,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         Login lo = new Login();
         txtnum.setText(lo.codigo);
     }
-
+    public static String cod1 = "";
     void bloqueo() {
         txtcod.setEditable(false);
         txtnum.setEditable(false);
@@ -106,6 +106,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         txtpre = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -259,6 +260,14 @@ public class AlquilerPelicula extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jButton3.setText("Confirmar Alquiler ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,19 +276,25 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(249, 249, 249)
                         .addComponent(jLabel1)
-                        .addContainerGap(234, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3)
+                                .addGap(75, 75, 75))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,12 +306,11 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(42, 42, 42))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addGap(13, 13, 13))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -339,26 +353,22 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         try {
             Connection con = new DBManager().obtenerConexion();
             ResultSet rs;
-            PreparedStatement pst = con.prepareStatement("select max(detalle.detalle_num_cod) from detalle inner join alquiler on alquiler.alquiler_num_cod=detalle.alquiler_num_cod where alquiler.tarjeta_num_cod = '" + num + "'");
+            PreparedStatement pst = con.prepareStatement("select count(detalle.detalle_num_cod) from detalle inner join alquiler on alquiler.alquiler_num_cod=detalle.alquiler_num_cod where alquiler.tarjeta_num_cod = '" + num + "' and alquiler_bl_est = '1'");
             rs = pst.executeQuery();
             while (rs.next()) {
                 int a = rs.getInt(1);
                 ///CONTADOR
-                if (a % 3 == 0) {
+                if (a <3) {
                     clsDetalle de = new clsDetalle();
-                    de.setDetalle_date_fechaPres(((JTextField) fechapre.getDateEditor().getUiComponent()).getText());
                     de.setPelicula_num_cod(cod);
                     de.setDetalle_double_importeBruto(String.valueOf(precio));
                     Detalle d = new Detalle();
                     d.IngresarDetalle(de);
                     Pelicula pe = new Pelicula();
-                    pe.ModificarExistencias(cod);
-                    Alquiler al = new Alquiler();
-                    al.ModificarEstado(num);
-                    JOptionPane.showMessageDialog(null, "Alquilado Correctamente");
-                    MenuCliente men = new MenuCliente();
-                    this.dispose();
-                    men.setVisible(true);
+                    pe.ModificarExistencias(cod);    
+                    cod1 = txtcod.getText();
+                    tabla();
+                    JOptionPane.showMessageDialog(null,"Agregado Correctamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "Limite Maximo Alcanzado");
                 }
@@ -375,6 +385,18 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         this.dispose();
         men.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+                String num = txtnum.getText();
+        Alquiler al = new Alquiler();
+                            al.FechaPres(((JTextField)fechapre.getDateEditor().getUiComponent()).getText());
+                    al.ModificarEstado(num);
+                    JOptionPane.showMessageDialog(null, "Alquilado Correctamente");
+                    MenuCliente men = new MenuCliente();
+                    this.dispose();
+                    men.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -416,6 +438,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser fechapre;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

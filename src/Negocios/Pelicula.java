@@ -8,6 +8,7 @@ package Negocios;
 import Conexion.DBManager;
 import Entidad.clsPelicula;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import sun.security.pkcs11.Secmod;
@@ -60,5 +61,32 @@ public class Pelicula {
             } catch (Exception e) {
                 System.out.println("Error al Modificar Existencias : " + e.getMessage());
             }
+            
     }
+//        public String ObtenerDate(Date b){
+//            String a;
+//            try {
+//                PreparedStatement pst = con.prepareStatement("select * from pelicula where detalle_date_fechaPres='" + b + "'");
+//            } catch (Exception e) {
+//            }
+//        }
+        public void ModificarExistencias1(String b){
+            int c = 0;
+            try {
+                PreparedStatement pst = con.prepareStatement("select * from pelicula");
+                rs = pst.executeQuery();
+                while(rs.next()){
+                    c = rs.getInt("pelicula_num_existencia");
+                }
+            } catch (Exception e) {
+                System.out.println("Error al Mostrar Existencias : " + e.getMessage());
+            }
+            c = c + 1;
+            try {
+                PreparedStatement pst = con.prepareStatement("update pelicula set pelicula_num_existencia='" + c + "' where pelicula_num_cod='" + b + "'");
+                pst.executeUpdate();
+            } catch (Exception e) {
+                System.out.println("Error al Modificar Existencias : " + e.getMessage());
+            }
+}
 }

@@ -199,7 +199,9 @@ void CentrarPantalla(){
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        txtmon.setText("");
+        MenuCliente men = new MenuCliente();
+        this.dispose();
+        men.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtmonKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmonKeyTyped

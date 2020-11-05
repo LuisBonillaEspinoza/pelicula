@@ -5,6 +5,18 @@
  */
 package Presentacion;
 
+import Negocios.Alquiler;
+import Negocios.Detalle;
+import Negocios.Pelicula;
+import Negocios.Tarjeta;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 /**
  *
  * @author LUIS
@@ -16,7 +28,20 @@ public class DevolverPelicula extends javax.swing.JFrame {
      */
     public DevolverPelicula() {
         initComponents();
+        Login lo = new Login();
+        Alquiler al = new Alquiler();
+        codal.setText(String.valueOf(al.ObtenerCodigoAlquiler()));
+        CentrarPantalla();
+        Detalle de = new Detalle();
+        codtar.setText(lo.codigo);
     }
+     void CentrarPantalla() {
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frame = getSize();
+
+        setLocation((screen.width - frame.width) / 2, (screen.height - frame.height) / 2);
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,11 +55,13 @@ public class DevolverPelicula extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        codal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fecha = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtmonto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        codtar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -48,18 +75,28 @@ public class DevolverPelicula extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel2.setText("Codigo : ");
 
-        jTextField1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        codal.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel3.setText("Fecha de Devolucion : ");
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
-        jDateChooser1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        fecha.setDateFormatString("yyyy-MM-dd");
+        fecha.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel4.setText("Monto Total : ");
 
-        jTextField2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        txtmonto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        txtmonto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtmontoMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jLabel5.setText("Tarjeta : ");
+
+        codtar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,17 +106,21 @@ public class DevolverPelicula extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2))))
+                            .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txtmonto)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(codal, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(codtar))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -88,23 +129,36 @@ public class DevolverPelicula extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(codal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(codtar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jButton1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton1.setText("Pagar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jButton2.setText("Atras");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,17 +185,68 @@ public class DevolverPelicula extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jButton1)
                         .addGap(28, 28, 28)
-                        .addComponent(jButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(txtmonto.getText().equals("")){
+            JOptionPane.showMessageDialog(null,"Haga Click en Monto");
+        }
+        else{
+        Alquiler al = new Alquiler();
+        al.ModificarPrecioNeto(txtmonto.getText());
+        Tarjeta tar = new Tarjeta();
+        tar.Pagar(Double.parseDouble(txtmonto.getText()),codtar.getText());
+        al.ModificarEstado1(codtar.getText());
+            Pelicula pe = new Pelicula();
+            AlquilerPelicula alq = new AlquilerPelicula();
+            pe.ModificarExistencias1(alq.cod1);
+        JOptionPane.showMessageDialog(null,"Pagado Correctamente");
+        MenuCliente men = new MenuCliente();
+        this.dispose();
+        men.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtmontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtmontoMouseClicked
+        // TODO add your handling code here:
+        Alquiler al = new Alquiler();
+        Detalle de = new Detalle();
+        String a = ((JTextField)fecha.getDateEditor().getUiComponent()).getText();
+        int monto_total = 0;
+        al.ModificarFechaDe(a);
+        int b = Integer.valueOf(al.CantidadDias());
+        int precio_bruto = de.SumaDetalle(String.valueOf(al.ObtenerCodigoAlquiler()));
+        System.out.println(precio_bruto);
+        System.out.println(b);
+        if(b<3){
+            monto_total = precio_bruto;
+        }
+        else{
+        monto_total = precio_bruto + b*1;
+        }
+        txtmonto.setText(String.valueOf(monto_total));
+        System.out.println(a);
+
+    }//GEN-LAST:event_txtmontoMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+                MenuCliente men = new MenuCliente();
+        this.dispose();
+        men.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,15 +284,17 @@ public class DevolverPelicula extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField codal;
+    private javax.swing.JTextField codtar;
+    private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtmonto;
     // End of variables declaration//GEN-END:variables
 }

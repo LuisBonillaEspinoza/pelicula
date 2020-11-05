@@ -7,6 +7,7 @@ package Negocios;
 
 import Conexion.DBManager;
 import Entidad.clsTarjeta;
+import Presentacion.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,5 +59,38 @@ public class Tarjeta {
         } catch (Exception e) {
             System.out.println("Error al Modificar Saldo : " + e.getMessage());
         }
+    }
+    public void Pagar(Double a,String b){
+        Double g=0.0;
+         try {
+            PreparedStatement pst = con.prepareStatement("select tarjeta_double_saldo from tarjeta where tarjeta_num_cod = '" + b + "'");
+            rs = pst.executeQuery();
+            while(rs.next()){
+                g = rs.getDouble("tarjeta_double_saldo");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al Mostrar Saldo");
+        }
+         g = g -a;
+         try {
+            PreparedStatement pst = con.prepareStatement("update tarjeta set tarjeta_double_saldo = '" + g + "' where tarjeta_num_cod = '" + b + "'");
+            pst.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al Modificar Saldo : " + e.getMessage());
+        }
+    }
+    public Double ObtenerSaldo(){
+        Double a =0.0;
+        Login lo = new Login();
+        try {
+            PreparedStatement pst = con.prepareStatement("select * from tarjeta where tarjeta_num_cod='" + lo.codigo +"'");
+            rs = pst.executeQuery();
+            while(rs.next()){
+                a = rs.getDouble("tarjeta_double_saldo");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al Mostrar Saldo");
+        }
+        return a;
     }
 }

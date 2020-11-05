@@ -13,6 +13,25 @@ public class clsAlquiler {
     private String alquiler_num_cod;
     private String alquiler_double_neto;
     private String tarjeta_num_cod;
+    private String alquiler_date_fechaPres;
+    private String alquiler_date_fechaDe;
+
+    public String getAlquiler_date_fechaPres() {
+        return alquiler_date_fechaPres;
+    }
+
+    public void setAlquiler_date_fechaPres(String alquiler_date_fechaPres) {
+        this.alquiler_date_fechaPres = alquiler_date_fechaPres;
+    }
+
+    public String getAlquiler_date_fechaDe() {
+        return alquiler_date_fechaDe;
+    }
+
+    public void setAlquiler_date_fechaDe(String alquiler_date_fechaDe) {
+        this.alquiler_date_fechaDe = alquiler_date_fechaDe;
+    }
+    
 
     public String getAlquiler_num_cod() {
         return alquiler_num_cod;
