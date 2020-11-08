@@ -85,6 +85,19 @@ public class Alquiler {
         }
         return b;
     }
+    public int ObtenerCodigoAlquiler1(){
+        int b=0;
+        try {
+            PreparedStatement pst = con.prepareStatement("select max(alquiler_num_cod) from alquiler where tarjeta_num_cod ='" + lo.codigo + "' and alquiler_bl_est='0'");
+            rs = pst.executeQuery();
+            while(rs.next()){
+                b = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al Obtener codigo : " + e.getMessage());
+        }
+        return b;
+    }
     public void FechaPres(String a){
         try {
             PreparedStatement pst = con.prepareStatement("update alquiler set alquiler_date_fechaPres='" + a + "' where tarjeta_num_cod='" + lo.codigo + "'");

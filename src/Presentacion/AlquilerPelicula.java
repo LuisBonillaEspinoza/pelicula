@@ -39,6 +39,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         CentrarPantalla();
         Login lo = new Login();
         txtnum.setText(lo.codigo);
+        bloqueo();
     }
     public static String cod1 = "";
     void bloqueo() {
@@ -349,15 +350,17 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cod = txtcod.getText();
         Double precio = Double.parseDouble(txtpre.getText());
-        String num = txtnum.getText();
+        Alquiler al = new Alquiler();
+        String num = String.valueOf(al.ObtenerCodigoAlquiler1());
         try {
             Connection con = new DBManager().obtenerConexion();
             ResultSet rs;
-            PreparedStatement pst = con.prepareStatement("select count(detalle.detalle_num_cod) from detalle inner join alquiler on alquiler.alquiler_num_cod=detalle.alquiler_num_cod where alquiler.tarjeta_num_cod = '" + num + "' and alquiler_bl_est = '1'");
+            PreparedStatement pst = con.prepareStatement("select count(detalle.detalle_num_cod) from detalle inner join alquiler on alquiler.alquiler_num_cod=detalle.alquiler_num_cod where alquiler.alquiler_num_cod = '" + num + "' and alquiler_bl_est = '0'");
             rs = pst.executeQuery();
             while (rs.next()) {
                 int a = rs.getInt(1);
                 ///CONTADOR
+                System.out.println(a);
                 if (a <3) {
                     clsDetalle de = new clsDetalle();
                     de.setPelicula_num_cod(cod);

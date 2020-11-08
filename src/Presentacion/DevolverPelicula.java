@@ -34,6 +34,7 @@ public class DevolverPelicula extends javax.swing.JFrame {
         CentrarPantalla();
         Detalle de = new Detalle();
         codtar.setText(lo.codigo);
+        bloqueo();
     }
      void CentrarPantalla() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -41,7 +42,11 @@ public class DevolverPelicula extends javax.swing.JFrame {
 
         setLocation((screen.width - frame.width) / 2, (screen.height - frame.height) / 2);
     }
-
+     void bloqueo(){
+         codal.setEditable(false);
+         codtar.setEditable(false);
+         txtmonto.setEditable(false);
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -9,6 +9,7 @@ import Negocios.Alquiler;
 import Negocios.Tarjeta;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,18 +27,25 @@ public class MenuCliente extends javax.swing.JFrame {
         jTextField1.setText(lo.nombre);
         Alquiler al = new Alquiler();
         Tarjeta ta = new Tarjeta();
-        jTextField2.setText(String.valueOf(ta.ObtenerSaldo()));
+        DecimalFormat df = new DecimalFormat("#.00");
+        jTextField2.setText(String.valueOf(df.format(ta.ObtenerSaldo())));
         if(ta.ObtenerSaldo()<=0){
             bloqueo();
         }
         if(al.ObtenerEstado()==1){
             bloqueo2();
         }
+        if(al.ObtenerEstado()==0){
+            bloqueo3();
+        }
         CentrarPantalla();
         bloqueo1();
     }
     void bloqueo2(){
         jButton2.setEnabled(false);
+    }
+    void bloqueo3(){
+        jButton3.setEnabled(false);
     }
         void CentrarPantalla(){
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();

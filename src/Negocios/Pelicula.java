@@ -46,7 +46,7 @@ public class Pelicula {
         public void ModificarExistencias(String b){
             int c = 0;
             try {
-                PreparedStatement pst = con.prepareStatement("select * from pelicula");
+                PreparedStatement pst = con.prepareStatement("select * from pelicula where pelicula_num_cod='" + b + "'");
                 rs = pst.executeQuery();
                 while(rs.next()){
                     c = rs.getInt("pelicula_num_existencia");
