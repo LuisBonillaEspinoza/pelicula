@@ -89,4 +89,17 @@ public class Pelicula {
                 System.out.println("Error al Modificar Existencias : " + e.getMessage());
             }
 }
+        public String ObtenerSipnosis(int a){
+            String b = "";
+            try {
+                PreparedStatement pst = con.prepareCall("select pelicula_txt_sipnosis from pelicula where pelicula_num_cod = '" + a + "'");
+                rs = pst.executeQuery();
+                while(rs.next()){
+                    b = rs.getString("pelicula_txt_sipnosis");
+                }
+            } catch (Exception e) {
+                System.out.println("Error al Obtener Sipnosis : " + e.getMessage());
+            }
+            return b;
+        }
 }
