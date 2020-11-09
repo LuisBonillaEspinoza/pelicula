@@ -33,7 +33,7 @@ public class GestionPelicula extends javax.swing.JFrame {
 txtsip.setWrapStyleWord(true);
     }
     void bloqueo(){
-        txtnom.setEditable(false);
+        txtcod.setEditable(false);
         txtgen.setEditable(false);
     }
     void tabla(){

@@ -384,7 +384,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                     d.IngresarDetalle(de);
                     Pelicula pe = new Pelicula();
                     pe.ModificarExistencias(cod);    
-                    cod1 = txtcod.getText();
+                    cod1 = String.valueOf((jtabla.getSelectedRow())+1);
                     tabla();
                     JOptionPane.showMessageDialog(null,"Agregado Correctamente");
                     txtcod.setText("");

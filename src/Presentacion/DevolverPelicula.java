@@ -274,11 +274,16 @@ public class DevolverPelicula extends javax.swing.JFrame {
         MenuCliente men = new MenuCliente();
         this.dispose();
         men.setVisible(true);
+            System.out.println(alq.cod1);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtmontoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtmontoMouseClicked
         // TODO add your handling code here:
+        if(fecha.getDate()==null){
+            JOptionPane.showMessageDialog(null,"Ingrese una Fecha de Devolucion Correcta");
+        }
+        else{
         Alquiler al = new Alquiler();
         Detalle de = new Detalle();
         String a = ((JTextField)fecha.getDateEditor().getUiComponent()).getText();
@@ -311,8 +316,7 @@ public class DevolverPelicula extends javax.swing.JFrame {
         else{
                     txtmonto.setText(String.valueOf(monto_total));
         }
-
-        System.out.println(a);
+        }
 
     }//GEN-LAST:event_txtmontoMouseClicked
 
