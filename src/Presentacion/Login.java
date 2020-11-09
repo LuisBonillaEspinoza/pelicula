@@ -68,11 +68,26 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("N° de Tarjeta : ");
 
         txtus.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        txtus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtusMouseClicked(evt);
+            }
+        });
+        txtus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtusKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel4.setText("Contraseña : ");
 
         txtpass.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        txtpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtpassKeyTyped(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jButton1.setText("Introducir Tarjeta");
@@ -181,6 +196,34 @@ public class Login extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtusMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusMouseClicked
+
+    private void txtusKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusKeyTyped
+        // TODO add your handling code here:
+                        char carac = evt.getKeyChar();
+        if (txtus.getText().length() > 15) {
+            evt.consume();
+
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(rootPane, "Se llego al limite de caracteres");
+        }
+           
+    }//GEN-LAST:event_txtusKeyTyped
+
+    private void txtpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpassKeyTyped
+        // TODO add your handling code here:
+                        char carac = evt.getKeyChar();
+        if (txtpass.getText().length() > 3) {
+            evt.consume();
+
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(rootPane, "Se llego al limite de caracteres");
+        }
+           
+    }//GEN-LAST:event_txtpassKeyTyped
 
     /**
      * @param args the command line arguments

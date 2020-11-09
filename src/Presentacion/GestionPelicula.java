@@ -29,6 +29,8 @@ public class GestionPelicula extends javax.swing.JFrame {
         CentrarPantalla();
         tabla();
         bloqueo();
+        txtsip.setLineWrap(true);
+txtsip.setWrapStyleWord(true);
     }
     void bloqueo(){
         txtnom.setEditable(false);

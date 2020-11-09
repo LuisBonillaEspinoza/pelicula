@@ -27,6 +27,8 @@ public class NuevaPelicula extends javax.swing.JFrame {
         initComponents();
         CentrarPantalla();
         genero();
+        txtsipno.setLineWrap(true);
+txtsipno.setWrapStyleWord(true);
     }
     void genero(){
         Negocios.Genero gen = new Negocios.Genero();

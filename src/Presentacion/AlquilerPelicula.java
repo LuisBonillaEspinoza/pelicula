@@ -11,6 +11,7 @@ import Negocios.Alquiler;
 import Negocios.Detalle;
 import Negocios.Pelicula;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -40,6 +41,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         Login lo = new Login();
         txtnum.setText(lo.codigo);
         bloqueo();
+                ((JTextField) this.fechapre.getDateEditor()).setEditable(false);
     }
     public static String cod1 = "";
     void bloqueo() {
@@ -164,7 +166,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         jLabel3.setText("N° de Tarjeta : ");
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jLabel4.setText("Codigo de la Pelicula : ");
+        jLabel4.setText("Nombre de la Pelicula : ");
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel5.setText("Fecha de Prestamo : ");
@@ -199,14 +201,6 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(48, 48, 48)
-                        .addComponent(txtnum))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtcod))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
@@ -217,7 +211,15 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtpre))))
+                        .addComponent(txtpre))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtcod)
+                            .addComponent(txtnum)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +248,18 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         );
 
         jButton1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jButton1.setText("Alquilar");
+        jButton1.setText("Alquilar Nuevamente");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButton1MouseReleased(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -288,8 +301,8 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
                                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addContainerGap())))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -326,7 +339,8 @@ public class AlquilerPelicula extends javax.swing.JFrame {
         if (a < -1) {
             JOptionPane.showMessageDialog(null, "Seleccione una fila correcta");
         } else {
-            txtcod.setText(jtabla.getValueAt(a, 0).toString());
+            
+            txtcod.setText(jtabla.getValueAt(a, 1).toString());
             txtpre.setText(jtabla.getValueAt(a, 4).toString());
         }
     }//GEN-LAST:event_jtablaMouseClicked
@@ -348,7 +362,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String cod = txtcod.getText();
+        String cod = String.valueOf((jtabla.getSelectedRow())+1);
         Double precio = Double.parseDouble(txtpre.getText());
         Alquiler al = new Alquiler();
         String num = String.valueOf(al.ObtenerCodigoAlquiler1());
@@ -362,6 +376,7 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                 ///CONTADOR
                 System.out.println(a);
                 if (a <3) {
+                    if(fechapre.getDate()!=null){
                     clsDetalle de = new clsDetalle();
                     de.setPelicula_num_cod(cod);
                     de.setDetalle_double_importeBruto(String.valueOf(precio));
@@ -372,6 +387,12 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                     cod1 = txtcod.getText();
                     tabla();
                     JOptionPane.showMessageDialog(null,"Agregado Correctamente");
+                    txtcod.setText("");
+                    txtpre.setText("");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"Agegue una Fecha Correcta");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Limite Maximo Alcanzado");
                 }
@@ -400,6 +421,21 @@ public class AlquilerPelicula extends javax.swing.JFrame {
                     this.dispose();
                     men.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+fechapre.getCalendarButton().setEnabled(false);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+        // TODO add your handling code here:
+fechapre.getCalendarButton().setEnabled(false);
+    }//GEN-LAST:event_jButton1MousePressed
+
+    private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
+        // TODO add your handling code here:
+fechapre.getCalendarButton().setEnabled(false);
+    }//GEN-LAST:event_jButton1MouseReleased
 
     /**
      * @param args the command line arguments

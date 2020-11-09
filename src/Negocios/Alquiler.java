@@ -167,4 +167,19 @@ public class Alquiler {
             System.out.println("Error al Modificar Fecha : " + e.getMessage());
         }
     }
+    public String ObtenerFechaAl(){
+        Login lo = new Login();
+        int b = ObtenerCodigoAlquiler();
+        String a = "";
+        try {
+            PreparedStatement pst = con.prepareStatement("select alquiler_date_fechaPres from alquiler where alquiler_num_cod='" + b + "'");
+            rs = pst.executeQuery();
+            while(rs.next()){
+                a = rs.getString("alquiler_date_fechaPres");
+            }
+        } catch (Exception e) {
+            System.out.println("Error al Obtener la fechca de alquiler : " + e.getMessage());
+        }
+        return a;
+    }
 }
