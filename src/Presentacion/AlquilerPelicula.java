@@ -424,17 +424,21 @@ public class AlquilerPelicula extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
+        if(fechapre.getDate()!=null){
 fechapre.getCalendarButton().setEnabled(false);
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
+ if(fechapre.getDate()!=null){
 fechapre.getCalendarButton().setEnabled(false);
+        }
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseReleased
         // TODO add your handling code here:
-fechapre.getCalendarButton().setEnabled(false);
+//fechapre.getCalendarButton().setEnabled(false);
     }//GEN-LAST:event_jButton1MouseReleased
 
     /**
